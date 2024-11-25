@@ -1,7 +1,7 @@
 import { Node } from "./Node";
 import { Directory } from "./Directory";
-import { MethodFailureException } from "../common/MethodFailureException";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
+import { MethodFailedException } from "../common/MethodFailedException";
 
 enum FileState {
     OPEN,
@@ -25,6 +25,11 @@ export class File extends Node {
         this.assertIsOpenPost();
 
         this.assertClassInvariants();
+    }
+
+    public read(noBytes: number): Int8Array {
+        // read something
+        return new Int8Array();
     }
 
     public close(): void {
@@ -54,13 +59,13 @@ export class File extends Node {
         )
     }
     protected assertIsOpenPost(): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.state === FileState.OPEN),
             "File was not opened correctly"
         )
     }
     protected assertIsClosedPost(): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.state === FileState.CLOSED),
             "File was not closed correctly"
         )

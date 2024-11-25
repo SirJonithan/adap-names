@@ -1,6 +1,6 @@
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 import { Name } from "../names/Name";
 import { Directory } from "./Directory";
 import { RootNode } from "./RootNode";
@@ -15,10 +15,15 @@ export class Node {
         this.assertArgumentNotNullOrUndefined(pn);
 
         this.doSetBaseName(bn);
-        this.parentNode = pn;
+        this.parentNode = pn; // why oh why do I have to set this
+        this.initialize(pn);
+    }
 
-        this.assertBaseNameIs(bn);
+    protected initialize(pn: Directory): void {
+        this.parentNode = pn;
+        // this.assertBaseNameIs(bn);
         this.assertParentNodeIs(pn);
+        this.parentNode.add(this);
     }
 
     public move(to: Directory): void {
@@ -26,6 +31,7 @@ export class Node {
         // let oldParent: Directory = this.parentNode;
 
         this.parentNode.remove(this);
+        this.parentNode = to;
         to.add(this);
 
         // this.assertNotInDir(oldParent);
@@ -67,8 +73,8 @@ export class Node {
         this.baseName = bn;
     }
 
-    public getParentNode(): Node {
-        let parent: Node = this.parentNode;
+    public getParentNode(): Directory {
+        let parent: Directory = this.parentNode;
 
         this.assertReturnNotNullOrUndefined(parent);
         return parent
@@ -91,17 +97,17 @@ export class Node {
 
     // post-conditions
     protected assertReturnNotNullOrUndefined(returnVal: Object | null, exMsg: string = "return value null or undefined"): void {
-        MethodFailureException.assertIsNotNullOrUndefined(returnVal, exMsg);
+        MethodFailedException.assertIsNotNullOrUndefined(returnVal, exMsg);
     }
     protected assertBaseNameIs(bn: string): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.getBaseName() === bn),
             "Failed setting BaseName"
         )
     }
 
     protected assertParentNodeIs(pn: Directory): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.getParentNode() === pn),
             "Parent Node not is set correctly"
         )
