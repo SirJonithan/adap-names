@@ -1,4 +1,4 @@
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
@@ -218,25 +218,25 @@ export abstract class AbstractName implements Name {
     // post-conditions
 
     protected assertDelimiterIsSet(d: string): void {
-        MethodFailureException.assertCondition((d === this.delimiter), "Delimiter not set correctly")
+        MethodFailedException.assertCondition((d === this.delimiter), "Delimiter not set correctly")
     }
 
     protected assertCloneIsEqual(clone: Name): void {
-        MethodFailureException.assertIsNotNullOrUndefined(clone);
-        MethodFailureException.assertCondition((this.isEqual(clone)), "Cloning failed");
+        MethodFailedException.assertIsNotNullOrUndefined(clone);
+        MethodFailedException.assertCondition((this.isEqual(clone)), "Cloning failed");
     }
 
     protected assertIsValidString(s: string): void {
-        MethodFailureException.assertIsNotNullOrUndefined(s);
+        MethodFailedException.assertIsNotNullOrUndefined(s);
         if (!this.isEmpty()) {
-            MethodFailureException.assertCondition((s !== ""), "String should not be empty")
+            MethodFailedException.assertCondition((s !== ""), "String should not be empty")
         } else {
-            MethodFailureException.assertCondition((s === ""), "String should be empty");
+            MethodFailedException.assertCondition((s === ""), "String should be empty");
         }
     }
 
     protected assertComponentEquals(i: number, c: string): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.getComponent(i) === c),
             "Setting Component failed"
         )
@@ -244,7 +244,7 @@ export abstract class AbstractName implements Name {
     }
 
     protected assertNoComponentsChanged(oldLen: number, expectedDiff: number): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.getNoComponents() === oldLen + expectedDiff),
             "component-count did not change accordingly"
         )
@@ -269,7 +269,7 @@ export abstract class AbstractName implements Name {
     }
 
     protected assertReturnNotNullOrUndefined(returnVal: Object | null, exMsg: string = "null or undefined"): void {
-        MethodFailureException.assertIsNotNullOrUndefined(returnVal, exMsg);
+        MethodFailedException.assertIsNotNullOrUndefined(returnVal, exMsg);
     }
 
 }
