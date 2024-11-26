@@ -1,6 +1,6 @@
 import { Node } from "./Node";
 import { Directory } from "./Directory";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 
 export class Link extends Node {
@@ -51,7 +51,7 @@ export class Link extends Node {
     }
 
     protected assertTargetIsSetTo(target: Node): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.targetNode === target),
             "Target Node is not set correctly"
         )

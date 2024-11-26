@@ -1,5 +1,5 @@
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 import { Node } from "./Node";
 
 export class Directory extends Node {
@@ -49,13 +49,13 @@ export class Directory extends Node {
     }
 
     protected assertNotContainingPost(node: Node): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (!this.childNodes.has(node)),
             "Node should not be contained"
         )
     }
     protected assertContainsPost(node: Node): void {
-        MethodFailureException.assertCondition(
+        MethodFailedException.assertCondition(
             (this.childNodes.has(node)),
             "Node should be contained"
         )
