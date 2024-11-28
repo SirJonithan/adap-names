@@ -101,7 +101,7 @@ export abstract class AbstractName implements Name {
     }
 
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation or deletion");
+        return this.delimiter;
     }
 
     abstract getNoComponents(): number;
@@ -114,7 +114,17 @@ export abstract class AbstractName implements Name {
     abstract remove(i: number): void;
 
     public concat(other: Name): void {
-        throw new Error("needs implementation or deletion");
+        this.assertIsNotNullOrUndefined(other, ExceptionType.PRECONDITION);
+        this.assertSharesDelimiter(other, ExceptionType.PRECONDITION);
+
+        let oldCompoCount: number = this.getNoComponents();
+
+        for (let i = 0; i < other.getNoComponents(); i++) {
+            this.append(other.getComponent(i));
+        }
+
+        this.assertComponentCountChangedBy(oldCompoCount, other.getNoComponents(), ExceptionType.POSTCONDITION);
+        this.assertClassInvariants();
     }
 
     protected assertClassInvariants(): void {
