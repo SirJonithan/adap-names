@@ -4,3 +4,7 @@ solution
 .vscode
 *-solutions
 *-private
+vitest.config.ts
+vitest.workspace-config.ts
+src/dev/dev.ts
+src/dev/test.py
