@@ -53,13 +53,17 @@ export class Node {
         return this.parentNode;
     }
 
-    /**
-     * Returns all nodes in the tree that match bn
-     * @param bn basename of node being searched for
-     */
+    /** Base implementation of findNodes in Node */
     public findNodes(bn: string): Set<Node> {
-        throw new Error("needs implementation or deletion");
+        const result = new Set<Node>();
+        if (this.getBaseName() === bn) {
+            result.add(this); // Add this node if it matches
+        }
+
+        this.assertClassInvariants();
+        return result;
     }
+
 
     protected assertClassInvariants(): void {
         const bn: string = this.doGetBaseName();

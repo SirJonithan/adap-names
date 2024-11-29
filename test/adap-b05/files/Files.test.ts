@@ -7,6 +7,9 @@ import { File } from "../../../src/adap-b05/files/File";
 import { BuggyFile } from "../../../src/adap-b05/files/BuggyFile";
 import { Directory } from "../../../src/adap-b05/files/Directory";
 import { RootNode } from "../../../src/adap-b05/files/RootNode";
+import { Exception } from "../../../src/adap-b05/common/Exception";
+import { ServiceFailureException } from "../../../src/adap-b05/common/ServiceFailureException";
+import { InvalidStateException } from "../../../src/adap-b05/common/InvalidStateException";
 
 function createFileSystem(): RootNode {
   let rn: RootNode = new RootNode();
@@ -23,15 +26,14 @@ function createFileSystem(): RootNode {
   let bashrc: File = new File(".bashrc", riehle);
   let wallpaper: File = new File("wallpaper.jpg", riehle);
   let projects: Directory = new Directory("projects", riehle);
-
   return rn;
 }
 
 describe("Basic naming test", () => {
   it("test name checking", () => {
-    // let fs: RootNode = createFileSystem();
-    // let ls: Node = [...fs.findNodes("ls")][0];
-    // expect(ls.getFullName().isEqual(new StringName("/usr/bin/ls", '/')));
+    let fs: RootNode = createFileSystem();
+    let ls: Node = [...fs.findNodes("ls")][0];
+    expect(ls.getFullName().isEqual(new StringName("/usr/bin/ls", '/')));
   });
 });
 
@@ -56,18 +58,20 @@ function createBuggySetup(): RootNode {
 
 describe("Buggy setup test", () => {
   it("test finding files", () => {
-    // let threwException: boolean = false;
-    // try {
-    //   let fs: RootNode = createBuggySetup();
-    //   fs.findNodes("ls");
-    // } catch(er) {
-    //   threwException = true;
-    //   let ex: Exception = er as Exception;
-    //   expect(ex instanceof ServiceFailureException);
-    //   expect(ex.hasTrigger());
-    //   let tx: Exception = ex.getTrigger();
-    //   expect(tx instanceof InvalidStateException);
-    // }
-    // expect(threwException);
+    let threwException: boolean = false;
+    console.log("entered test")
+    try {
+      let fs: RootNode = createBuggySetup();
+      fs.findNodes("ls");
+    } catch (er) {
+      console.log("in AbnormalState");
+      threwException = true;
+      let ex: Exception = er as Exception;
+      expect(ex instanceof ServiceFailureException);
+      expect(ex.hasTrigger());
+      let tx: Exception = ex.getTrigger();
+      expect(tx instanceof InvalidStateException);
+    }
+    expect(threwException);
   });
 });

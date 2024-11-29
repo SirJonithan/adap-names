@@ -11,7 +11,6 @@ export abstract class AbstractName implements Name {
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        console.log("asString called")
         let str: string = "";
         let len: number = this.getNoComponents();
         for (let i = 0; i < len; i++) {
@@ -22,7 +21,6 @@ export abstract class AbstractName implements Name {
                 str += delimiter;
             }
         }
-        console.log("string: " + str)
         return str;
     }
 

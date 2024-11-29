@@ -131,13 +131,12 @@ export abstract class AbstractName implements Name {
         //ToDo Implement
     }
 
-    protected assertIsNotNullOrUndefined(o: Object | null, et: ExceptionType) {
+    protected assertIsNotNullOrUndefined(o: Object | null, et: ExceptionType): void {
         AssertionDispatcher.dispatch(
             et,
-            (o == undefined) || (o == null),
+            !(o === undefined) && !(o === null),
             "null or undefined"
         )
-        return (o == undefined) || (o == null);
     }
 
     protected assertIndexInBounds(i: number, et: ExceptionType): void {

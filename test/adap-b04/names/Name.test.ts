@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { Name } from "../../../src/adap-b04/names/Name";
 import { StringName } from "../../../src/adap-b04/names/StringName";
 import { StringArrayName } from "../../../src/adap-b04/names/StringArrayName";
-import { IllegalArgumentException } from "../../../src/adap-b04//common/IllegalArgumentException";
+import { IllegalArgumentException } from "../../../src/adap-b04/common/IllegalArgumentException";
 
 describe("Basic StringName function tests", () => {
     it("test insert", () => {
@@ -67,7 +67,6 @@ describe("Escape character parade", () => {
         // [ m.y | n,a\m.e ] (un-esc)
         expect(n.asDataString()).toBe("m\\.y.n,a\\\\m\\\\.e")
         expect(n2.asDataString()).toBe("m\\.y.n,a\\\\m\\\\.e")
-        console.log(n.asString())
     });
 
 });
