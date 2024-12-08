@@ -6,7 +6,7 @@ import { Exception } from "./Exception";
  */
 export class ServiceFailureException extends Exception {
 
-    public static assert(c: boolean, m: string = "service failed", t?: Exception): void {
+    static assertCondition(c: boolean, m: string = "service failed", t?: Exception): void {
         if (!c) throw new ServiceFailureException(m, t);
     }
 

@@ -1,5 +1,6 @@
 import { Equality } from "../common/Equality";
 import { Cloneable } from "../common/Cloneable";
+import { Printable } from "../common/Printable";
 
 /**
  * A coordinate (here) is a point in a two-dimensional coordinate system.
