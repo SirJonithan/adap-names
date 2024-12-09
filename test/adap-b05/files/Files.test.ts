@@ -59,18 +59,15 @@ function createBuggySetup(): RootNode {
 describe("Buggy setup test", () => {
   it("test finding files", () => {
     let threwException: boolean = false;
-    console.log("entered test")
     try {
       let fs: RootNode = createBuggySetup();
       fs.findNodes("ls");
     } catch (er) {
-      console.log("in AbnormalState");
       threwException = true;
       let ex: Exception = er as Exception;
       expect(ex instanceof ServiceFailureException).toBe(true);
       expect(ex.hasTrigger());
       let tx: Exception = ex.getTrigger();
-      console.log(typeof(tx));
       expect(tx instanceof InvalidStateException).toBe(true);
     }
     expect(threwException).toBe(true);

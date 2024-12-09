@@ -66,6 +66,5 @@ describe("Escape character parade", () => {
     // [ m.y | n,a\m.e ] (un-esc)
     expect(n.asDataString()).toBe("m\\.y.n,a\\\\m\\\\.e")
     expect(n2.asDataString()).toBe("m\\.y.n,a\\\\m\\\\.e")
-    console.log(n.asString())
   });
 });
